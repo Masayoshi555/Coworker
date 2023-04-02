@@ -1,65 +1,47 @@
-# Coworker README
+# "Coworker"-README
 
-This is the README for your extension "Coworker". After writing up a brief description, we recommend including the following sections.
+Free you from copy & paste to ChatGPT.
+"Coworker" that displays a real-time ChatGPT conversation in a second column, allowing users to interact with an AI assistant while working on their code. And, "Coworker" always send a request to ChatGPT with active window's codes and errors synchronized automatically.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Interact with ChatGPT directly from Visual Studio Code
+- Get assistance from ChatGPT while working on your code
+- Configure your OpenAI API key to enable the ChatGPT functionality
+- Codes and errors in the active window are automatically reflected in the extension
 
-For example if there is an image subfolder under your extension project workspace:
+## Getting Started
 
-\!\[feature X\]\(images/feature-x.png\)
+1. Install the sideGPT extension from the Visual Studio Code Marketplace.
+2. Obtain an API key from OpenAI by visiting https://beta.openai.com/signup/.
+3. To set up the API key in the extension, there are two ways:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+   ### Method 1: Via the Extension Settings
+   - In Visual Studio Code, go to the Extensions tab.
+   - Find the sideGPT extension and click on the gear icon to access its settings.
+   - Enter your API key in the "API Key" field.
 
-## Requirements
+   ### Method 2: Via "API_KEY settings” Link on extension window
+   - Click "API_KEY settings” and then the setting pop-up window will open.
+   - Enter your API key in the "API Key" field.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+4. Save your settings.
+5. Use the Command Palette (Ctrl+Shift+P or Cmd+Shift+P on Mac) and type “Coworker" to start a new ChatGPT session.
 
-## Extension Settings
+## Usage
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+- Type your questions or prompts in the input field and push the button “Request” to get a response from ChatGPT.
+- Send  the value of input field, current code, error and conversation history to ChatGPT
 
-For example:
+## Road map
 
-This extension contributes the following settings:
+- [ ]Support for GPT-4
+- [ ]Support for refering multiple files
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## Contributing
 
-## Known Issues
+If you'd like to contribute to this project, please submit a pull request or open an issue on the GitHub repository.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## License
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+This project is licensed under the MIT License. See the LICENSE file for more details.

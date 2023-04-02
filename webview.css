@@ -1,0 +1,71 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    padding: 16px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 16px;
+}
+textarea, button {
+    border-radius: 10px;
+    background-color: #252526;
+    color: #ffffff;
+}
+textarea {
+    resize: vertical;
+    width: 100%;
+}
+.loading {
+    font-size: 18px;
+    animation: rotation 2s infinite linear;
+}
+#settings-link {
+    font-size: 0.8rem;
+    color: #bb86fc;
+    cursor: pointer;
+    text-decoration: underline;
+}
+button#submit:before, button#reset:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.5) 50%, transparent 50%);
+    border-radius: inherit;
+    z-index: -1;
+    animation: rotate 2s infinite linear;
+    opacity: 0;
+}
+button#submit {
+    width: 160px;
+    border: 2px solid transparent;
+    padding: 8px 16px;
+    outline: none;
+}
+button#reset {
+    width: 80px;
+    border: 2px solid transparent;
+    padding: 8px 16px;
+    outline: none;
+}
+.generating:before {
+    content: 'Generating';
+    animation: dots 1s steps(5, end) infinite;
+}
+@keyframes dots {
+    33% {
+        content: 'Generating.';
+    }
+    66% {
+        content: 'Generating..';
+    }
+    100% {
+        content: 'Generating...';
+    }
+}

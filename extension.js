@@ -1,36 +1,66 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-const vscode = require('vscode');
-
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-
-/**
- * @param {vscode.ExtensionContext} context
+/*
+ * Copyright 2023 Masayoshi555
+ *
+ * Licensed under the MIT License.
+ * See LICENSE.md file in the project root for license information.
  */
-function activate(context) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "Coworker" is now active!');
+const vscode = require('vscode');
+const { createWebviewPanel, openSettings } = require('./webview');
+let panel;
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('Coworker.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
+// Function to interact with the ChatGPT API
+async function interactWithChatGPT() {
+    const apiKey = vscode.workspace.getConfiguration('chatgpt').get('apiKey');
+    if (!apiKey) {
+        vscode.window.showErrorMessage('Please set your OpenAI API key in the extension settings.');
+        return;
+    }
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Coworker!');
-	});
-
-	context.subscriptions.push(disposable);
+    panel = createWebviewPanel(apiKey);
 }
 
-// This method is called when your extension is deactivated
+async function activate(context) {
+    // Register the "coworker.sayHello" command
+    const launchCommand = vscode.commands.registerCommand('coworker.sayHello', interactWithChatGPT);
+    context.subscriptions.push(launchCommand);
+
+    // Register the "chatgpt.openSettings" command
+    const openSettingsCommand = vscode.commands.registerCommand('chatgpt.openSettings', openSettings);
+    context.subscriptions.push(openSettingsCommand);
+
+	// Get the API key from the extension settings
+    const apiKey = vscode.workspace.getConfiguration('chatgpt').get('apiKey');
+
+    if (!apiKey) {
+        vscode.commands.executeCommand('workbench.action.openSettings', '@ext:masayoshi555.chatgpt.apikey');
+    }
+
+	// Listen to changes in the active text editor
+    vscode.window.onDidChangeActiveTextEditor(async (editor) => {
+        // If an editor is active, get its file name, content, and error messages
+        if (editor) {
+            const fileName = editor.document.fileName.split(/[/\\]/).pop();
+            const documentContent = editor.document.getText();
+            const activeDocumentUri = editor.document.uri;
+            const diagnostics = vscode.languages.getDiagnostics(activeDocumentUri);
+            const errorMessages = diagnostics.map((diagnostic) => diagnostic.message).join('\n');
+            
+            if (panel) {
+                panel.webview.postMessage({
+                    type: 'updateInfo',
+                    fileName,
+                    documentContent,
+                    errorMessages,
+                });
+            }
+        }
+    });
+}
+
 function deactivate() {}
 
 module.exports = {
-	activate,
-	deactivate
-}
+    activate,
+    deactivate
+};

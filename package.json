@@ -1,21 +1,50 @@
 {
-  "name": "Coworker",
+  "name": "coworker",
   "displayName": "Coworker",
   "description": "A Visual Studio Code extension that displays a real-time ChatGPT conversation in a second column, allowing users to interact with an AI assistant while working on ",
-  "version": "0.0.1",
+  "publisher": "masayoshi555",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.77.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:chatgpt.openSettings",
+    "onCommand:coworker.sayHello"
+  ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "Coworker.helloWorld",
-      "title": "Hello World"
-    }]
+    "configuration": {
+      "title": "Coworker",
+      "properties": {
+        "chatgpt.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your OpenAI API key"
+        }
+      }
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "coworker.webview",
+          "name": "coworker",
+          "when": "config.chatgpt.apiKey != ''"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "coworker.sayHello",
+        "title": "Coworker-Sam"
+      },
+      {
+        "command": "chatgpt.openSettings",
+        "title": "Open chatGPT Settings"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
@@ -23,14 +52,31 @@
     "test": "node ./test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.77.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.76.0",
+    "@vscode/test-electron": "^2.3.0",
     "eslint": "^8.36.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
-    "typescript": "^4.9.5",
-    "@vscode/test-electron": "^2.3.0"
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Masayoshi555/Coworker.git"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module"
+    },
+    "env": {
+      "es6": true,
+      "node": true
+    }
   }
 }
