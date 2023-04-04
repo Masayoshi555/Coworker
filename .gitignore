@@ -1,6 +1,5 @@
 node_modules
 .vscode-test/
-.vscode
 *.vsix
 test
 coworker.code-workspace
