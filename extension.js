@@ -11,13 +11,18 @@ let panel;
 
 // Function to interact with the ChatGPT API
 async function interactWithChatGPT() {
-    const apiKey = vscode.workspace.getConfiguration('chatgpt').get('apiKey');
-    if (!apiKey) {
-        vscode.window.showErrorMessage('Please set your OpenAI API key in the extension settings.');
-        return;
+    // Generate the second column if it doesn't exist
+    if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.viewColumn !== vscode.ViewColumn.Two) {
+        vscode.commands.executeCommand('workbench.action.splitEditor', { "newInCurrentGroup": false });
     }
 
+    // Get the API key from the extension settings
+    const apiKey = vscode.workspace.getConfiguration('chatgpt').get('apiKey');
     panel = createWebviewPanel(apiKey);
+    // If the API key is not set, open the settings and show the extension panel
+    if (!apiKey) {
+        openSettings(apiKey);
+    }
 }
 
 async function activate(context) {
@@ -29,14 +34,7 @@ async function activate(context) {
     const openSettingsCommand = vscode.commands.registerCommand('chatgpt.openSettings', openSettings);
     context.subscriptions.push(openSettingsCommand);
 
-	// Get the API key from the extension settings
-    const apiKey = vscode.workspace.getConfiguration('chatgpt').get('apiKey');
-
-    if (!apiKey) {
-        vscode.commands.executeCommand('workbench.action.openSettings', '@ext:masayoshi555.chatgpt.apikey');
-    }
-
-	// Listen to changes in the active text editor
+    // Listen to changes in the active text editor
     vscode.window.onDidChangeActiveTextEditor(async (editor) => {
         // If an editor is active, get its file name, content, and error messages
         if (editor) {
