@@ -35,8 +35,8 @@ Free you from copy & paste to ChatGPT.
 
 ## Road map
 
-- [ ]Support for GPT-4
-- [ ]Support for refering multiple files
+[ ] Support for GPT-4
+[ ] Support for refering multiple files
 
 ## Contributing
 

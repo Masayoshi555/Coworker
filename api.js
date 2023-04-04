@@ -26,8 +26,8 @@ async function sendOpenAIRequest(prompt, apiKey, currentCode, conversationHistor
             messages: [
                 { role: "system", content: "You are multilingual programer of google. You should answer using same language which user used. You should briefly explain using Markdown." },
                 { role: "user", content: prompt},
-                { role: "user", content: `currentCode: ${currentCode}` },
-                { role: "user", content: `conversationHistory: ${conversationHistory}` }
+                { role: "assistant", content: `currentCode: ${currentCode}` },
+                { role: "assistant", content: `conversationHistory: ${conversationHistory}` }
             ],
         })
     };
