@@ -27,7 +27,7 @@ async function handleWebviewMessage(message, apiKey, panel) {
     }
 }
 
-async function openSettings(apiKey) {
+async function openSettings() {
     // Open the settings page
     await vscode.commands.executeCommand('workbench.action.openSettings', '@ext:masayoshi555.coworker');
     vscode.window.showErrorMessage('Please set your OpenAI API key in the extension settings.');

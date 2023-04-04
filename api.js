@@ -33,7 +33,7 @@ async function sendOpenAIRequest(prompt, apiKey, currentCode, conversationHistor
     };
     console.log(requestOptions)
 
-    return fetchWrapper(openAIUrl, requestOptions)
+    return await fetchWrapper(openAIUrl, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
