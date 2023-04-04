@@ -3,7 +3,7 @@
   "displayName": "Coworker",
   "description": "A Visual Studio Code extension that displays a real-time ChatGPT conversation in a second column, allowing users to interact with an AI assistant while working on ",
   "publisher": "masayoshi555",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.77.0"
   },
