@@ -15,7 +15,6 @@ async function interactWithChatGPT() {
     if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.viewColumn !== vscode.ViewColumn.Two) {
         vscode.commands.executeCommand('workbench.action.splitEditor', { "newInCurrentGroup": false });
     }
-
     // Get the API key from the extension settings
     const apiKey = vscode.workspace.getConfiguration('chatgpt').get('apiKey');
     panel = createWebviewPanel(apiKey);
