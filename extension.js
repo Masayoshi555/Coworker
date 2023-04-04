@@ -20,7 +20,7 @@ async function interactWithChatGPT() {
     panel = createWebviewPanel(apiKey);
     // If the API key is not set, open the settings and show the extension panel
     if (!apiKey) {
-        openSettings(apiKey);
+        openSettings();
     }
 }
 

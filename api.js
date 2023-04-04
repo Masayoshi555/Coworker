@@ -6,14 +6,13 @@
  */
 
 const codeRegex =  /```([\s\S]*?)```/g;
+const fetch = require('node-fetch').default;
 
 async function fetchWrapper(openAIUrl, requestOptions) {
-    const { default: fetch } = await import('node-fetch');
     return fetch(openAIUrl, requestOptions);
 }  
 
 async function sendOpenAIRequest(prompt, apiKey, currentCode, conversationHistory) {
-    console.log(prompt)
     const openAIUrl = 'https://api.openai.com/v1/chat/completions';
     const requestOptions = {
         method: 'POST',
@@ -31,7 +30,6 @@ async function sendOpenAIRequest(prompt, apiKey, currentCode, conversationHistor
             ],
         })
     };
-    console.log(requestOptions)
 
     return await fetchWrapper(openAIUrl, requestOptions)
         .then(response => {
@@ -43,10 +41,10 @@ async function sendOpenAIRequest(prompt, apiKey, currentCode, conversationHistor
         .then((data) => {
             if (typeof data === 'object' && data !== null && 'choices' in data && Array.isArray(data.choices) && data.choices.length > 0 && 'message' in data.choices[0] && 'content' in data.choices[0].message) {
                 const content = data.choices[0].message.content;
-                const codeMatches = [...content.matchAll(codeRegex)]; // すべてのコード部分を抽出
-                const extractedCodes = codeMatches.map(match => match[1].trim()); // コード部分の配列を作成
-                const contentWithoutCodes = content.replace(codeRegex, '').trim(); // コード部分を削除したコンテンツ
-                return { contentWithoutCodes, extractedCodes }; // 抽出されたすべてのコード部分を返す
+                const codeMatches = [...content.matchAll(codeRegex)]; 
+                const extractedCodes = codeMatches.map(match => match[1].trim()); 
+                const contentWithoutCodes = content.replace(codeRegex, '').trim(); 
+                return { contentWithoutCodes, extractedCodes }; 
             } else {
                 throw new Error('Invalid response from ChatGPT');
             }
